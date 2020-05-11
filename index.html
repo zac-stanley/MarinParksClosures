@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset=utf-8 />
-	<title>Wildfires in California</title>
+	<title>Marin County Park Closures</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
 
@@ -62,8 +62,22 @@
 					top: 0;
 					bottom: 0;
 					width: 100%;
-					background: rgba(63, 63, 63, 0.9);
+					background: #ddd;
 					/* with transparency */
+				}
+
+				#about {
+					position: absolute;
+					top: 12px;
+					left: 15px;
+					width: 275px;
+					padding: 0 15px;
+					/* Add styles to match Leaflet UI elements */
+					background: rgba(256, 256, 256, .3);
+					box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+					border: 1px solid #ddd;
+					border-radius: 5px;
+					z-index: 800;
 				}
 		
 				a {
@@ -73,11 +87,6 @@
 				a:hover {
 					color: rgb(67, 69, 71);
 					text-decoration: none;
-				}
-		
-				footer {
-					padding: 6px 10%;
-					width: 80%;
 				}
 		
 				p {
@@ -92,69 +101,9 @@
 				
 				.leaflet-bar a {
 					/* Override the default style for Leaflet's zoom  */
-					background: rgba(100, 100, 100, 0.9);
+					background: rgba(256, 256, 256, .3);
 					color:  #222;
 				}
-
-				#info-button {
-					font-family: 'Roboto', sans-serif;
-					padding: 8px 5px;
-					font-size: 1.1em;
-					font-weight: bolder;
-					/* Style matches Leaflet controls */
-					border: 2px solid #333333;
-					background: rgba(100, 100, 100, 0.9);
-					color:  #222;
-					border-radius: 5px;
-					/* Position is fixed next to the zoom bar */
-					position: fixed;
-					top: 12px;
-					right: 150px;
-					/* Draw it on top of all elements */
-					z-index: 9999;
-					/* Cursor change on hover -- doesn't work on touch screensn */
-					cursor: pointer;
-			}
-			
-			#footer {
-					font-family: 'Roboto', sans-serif;
-					width: 100%;
-					background: rgba(244, 244, 244, 0.8);
-					color: rgba(20, 20, 20, 0.8);
-					box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-					height: 0px;
-					padding: 0px;
-					/* display below the button to allow clicking if overlay covers screen */
-					z-index: 9000;
-					position: absolute;
-					/* 
-					Hide the footer be default. This should not contain too much information. Like to a new page for extended content.
-					*/
-					bottom: -10px;
-					/* If too much is included, enable scroll */
-					overflow: scroll;
-			}
-			
-			#footer div {
-					padding: 10px;
-			}
-			
-			#footer h1 {
-					font-size: 1em;
-					margin: 0 0 5px 0;
-			}
-
-			#footer p {
-					font-size: 1.2em;
-					margin: 5px 0 5px 0;
-					line-height: 1.2em;
-			}
-			
-			.footer-img {
-					float: right;
-					height: 10vh;
-					margin: 10px;
-			}
 
 			@media only screen and (max-width: 900px) {
 				#info-button {
@@ -168,14 +117,6 @@
 
 <body>
 	<div id='map'></div>
-<button id="info-button" onclick="myInfo()">Wildfires in California - click to learn more</button>
-<div id='footer'>
-    <div>
-	<p><img src="https://uky-gis.github.io/graphics/logo-color-400px.png" class="footer-img">
-    This bivariate map represents wildfires in California from 2009-2019. The symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire during this time period. The data came from the <a href="https://data.fs.usda.gov/geodata/edw/datasets.php?xmlKeyword=wildfire">U.S. Forest Service</a>;
-					FIRESTAT Fire Occurrence - Yearly Update. Map created by <a href="https://github.com/zac-stanley">Zac Stanley</a>, Spring  2020.</p>
-    </div>
-</div>
 </body>
 
 	<header>
@@ -185,6 +126,11 @@
 		<div class="row">
 			<div id="map"></div>
 		</div>
+
+		<section id="about">
+			<h2>Shelter in Place Closures for Marin County</h2>
+				<p>This map highlights status of open space/park closures for lands managed by National Park Service, California State Parks, Marin County Parks and Marin Municipal Water District in Marin County, California. <b>Updated 5/11/2020</b></p>
+		</section>
 	</section>
 
 	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
@@ -195,19 +141,36 @@
 		var options = {
 			center: [38.065310, -122.722505],
 			zoomSnap: .11,
-			zoom: 4.6
+			zoom: 4.6,
+			zoomControl: false
 		}
 
 		// create a Leaflet map in our division container with id of 'map'
 		var map = L.map('map', options);
 
+	// Get basemap URL from Leaflet Providers
+	var basemap_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+
+	// Get basemap attributes from Leaflet Providers
+	var basemap_attributes = {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+		subdomains: 'abcd',
+		maxZoom: 19
+	};
+	// requests some map tiles
+	var tiles = L.tileLayer(basemap_url, basemap_attributes);
+
+	map.addLayer(tiles);
+	map.addControl(L.control.zoom({ position: 'topright' }));
+
 		var styles = {
 			weight: 1,
 			stroke: 1,
-			fillOpacity: .9
+			fillOpacity: .4
 		}
 		// add state outline
 		var countyLayer = L.geoJson(county, {
+			
 			style: function (feature) {
 				return {
 					// Let's experiment with these colors shortly
@@ -231,44 +194,87 @@
 		countyLayer.addTo(map)
 
 			// add lightning cause
-		var lightning = L.geoJson(fires, {
+		var softClosure = L.geoJson(bounds, {
 			pointToLayer: function (feature, latlng) {
-				return L.circleMarker(latlng, styles);
+				return feature
 			},
 			filter: function (feature) {
-				if (feature.properties.STATISTICA == "Lightning") {
+			if (feature.properties.ClosStat == "Soft Closure") {
 					return feature;
 				}
 			},
 			style: function (feature) {
 				return {
 					color: 'false',
-					fillColor: '#D98A29',
-					radius: getRadius(feature.properties.Acres)
+					fillColor: '#FFB700',
+					fillOpacity: .9
+
 				}
-			},
+		},
 			onEachFeature: function (feature, layer) {
 				layer.on('mouseover', function () {
 					layer.setStyle({
-						fillColor: '#99611D'
+						fillColor: '#FFB700',
+						fillOpacity: .7
 					});
 				});
 				layer.on('mouseout', function () {
 					layer.setStyle({
-						fillColor: '#D98A29'
+						fillColor: '#FFB700',
+						fillOpacity: .9
 					});
 				});
 
-				// create template literal for tooltip  
-				// popup = `<h4>${feature.properties.FIRE_NAME} Fire</h4>Cause: ${feature.properties.STATISTICA}<br> Size: ${feature.properties.Acres.toLocaleString()}<br> Year: ${feature.properties.DISCOVER_Y}`
-				props = feature.properties
-				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+			//	 create template literal for tooltip  
+				 popup = `<h4>${feature.properties.SITE_NAME}</h4>Closure Status: <b>${feature.properties.ClosStat}</b>`
+//	</br>			props = feature.properties
+//	</br>			popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
 
 				layer.bindTooltip(popup)
 			}
 		}).addTo(map);
 
-		// add miscellaneous cause
+		var softClosure = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == null) {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#B50010',
+					fillOpacity: .9
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#B50010',
+						fillOpacity: .7
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#B50010',
+						fillOpacity: .9
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<h4>${feature.properties.SITE_NAME}</h4>Closure Status: <b>${feature.properties.ClosStat}</b>`
+//	</br>			props = feature.properties
+//	</br>			popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		{/* // add miscellaneous cause
 		var misc = L.geoJson(fires, {
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, styles);
@@ -452,7 +458,7 @@
 				x.style.height = '33vh';  // footer 33% of viewport height
 			}
 			clicked = !clicked
-		}
+		} */}
 	</script>
 	</body>
 	
