@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+	<title>Wildfires in California</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet"> 
+
+	<style>		
+		
+				body {
+					margin: 0;
+					padding: 0;
+					background: #222;
+					/* dark */
+					font-family: Lato, sans-serif;
+					font-size: 100%;
+					color: #ddd;
+					/* light */
+				}
+		
+				header {
+					top: 0px;
+					width: 80%;
+					margin: 10px auto 10px auto;
+				}
+
+				select {
+					width: 260px;
+				}
+		
+				h1 {
+					display: inline-block;
+					margin-right: 20px;
+					color: #001323;
+				}
+		
+				h2 {
+					display: inline-block;
+					color: #001323;
+				}
+
+				h4 {
+					font-family: 'Roboto', sans-serif;
+					color: #000000;
+					font-size: 1.2em;
+					letter-spacing: .06em;
+					font-style: italic;
+					font-weight: bolder;
+					margin: 5px 0;
+				}	
+		
+				#map {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					width: 100%;
+					background: rgba(63, 63, 63, 0.9);
+					/* with transparency */
+				}
+		
+				a {
+					color: #004A8B;
+				}
+		
+				a:hover {
+					color: rgb(67, 69, 71);
+					text-decoration: none;
+				}
+		
+				footer {
+					padding: 6px 10%;
+					width: 80%;
+				}
+		
+				p {
+					font-size: 1em;
+					color: #001323;
+				}
+
+				.leaflet-control-layers-expanded { 
+					background:  rgba(100, 100, 100, 0.9); 
+					font-family: 'Roboto', sans-serif;
+				}
+				
+				.leaflet-bar a {
+					/* Override the default style for Leaflet's zoom  */
+					background: rgba(100, 100, 100, 0.9);
+					color:  #222;
+				}
+
+				#info-button {
+					font-family: 'Roboto', sans-serif;
+					padding: 8px 5px;
+					font-size: 1.1em;
+					font-weight: bolder;
+					/* Style matches Leaflet controls */
+					border: 2px solid #333333;
+					background: rgba(100, 100, 100, 0.9);
+					color:  #222;
+					border-radius: 5px;
+					/* Position is fixed next to the zoom bar */
+					position: fixed;
+					top: 12px;
+					right: 150px;
+					/* Draw it on top of all elements */
+					z-index: 9999;
+					/* Cursor change on hover -- doesn't work on touch screensn */
+					cursor: pointer;
+			}
+			
+			#footer {
+					font-family: 'Roboto', sans-serif;
+					width: 100%;
+					background: rgba(244, 244, 244, 0.8);
+					color: rgba(20, 20, 20, 0.8);
+					box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+					height: 0px;
+					padding: 0px;
+					/* display below the button to allow clicking if overlay covers screen */
+					z-index: 9000;
+					position: absolute;
+					/* 
+					Hide the footer be default. This should not contain too much information. Like to a new page for extended content.
+					*/
+					bottom: -10px;
+					/* If too much is included, enable scroll */
+					overflow: scroll;
+			}
+			
+			#footer div {
+					padding: 10px;
+			}
+			
+			#footer h1 {
+					font-size: 1em;
+					margin: 0 0 5px 0;
+			}
+
+			#footer p {
+					font-size: 1.2em;
+					margin: 5px 0 5px 0;
+					line-height: 1.2em;
+			}
+			
+			.footer-img {
+					float: right;
+					height: 10vh;
+					margin: 10px;
+			}
+
+			@media only screen and (max-width: 900px) {
+				#info-button {
+					width: 200px;
+				}
+            
+            }
+
+	</style>
+</head>
+
+<body>
+	<div id='map'></div>
+<button id="info-button" onclick="myInfo()">Wildfires in California - click to learn more</button>
+<div id='footer'>
+    <div>
+	<p><img src="https://uky-gis.github.io/graphics/logo-color-400px.png" class="footer-img">
+    This bivariate map represents wildfires in California from 2009-2019. The symbol size represents size in acres >= 100 and the colors represent the five most common cause of fire during this time period. The data came from the <a href="https://data.fs.usda.gov/geodata/edw/datasets.php?xmlKeyword=wildfire">U.S. Forest Service</a>;
+					FIRESTAT Fire Occurrence - Yearly Update. Map created by <a href="https://github.com/zac-stanley">Zac Stanley</a>, Spring  2020.</p>
+    </div>
+</div>
+</body>
+
+	<header>
+	<!--	<h1>California Wildfires, 2009-2019</h1> -->
+	</header>
+	<section>
+		<div class="row">
+			<div id="map"></div>
+		</div>
+	</section>
+
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+	<script src="GeoJsons/MarinBnd.js"></script>
+	<script src="GeoJsons/MarinClosures.js"></script>
+	<script>
+		// map options
+		var options = {
+			center: [38.065310, -122.722505],
+			zoomSnap: .11,
+			zoom: 4.6
+		}
+
+		// create a Leaflet map in our division container with id of 'map'
+		var map = L.map('map', options);
+
+		var styles = {
+			weight: 1,
+			stroke: 1,
+			fillOpacity: .9
+		}
+		// add state outline
+		var countyLayer = L.geoJson(county, {
+			style: function (feature) {
+				return {
+					// Let's experiment with these colors shortly
+					// color: '#222222', // Gray
+					color: '#333333', // White
+					// Make line weight larger than the county outline
+					weight: 2,
+					fillOpacity: 0.1,
+					fillColor: '#CCCCCC',
+					// This property allows us control interactivty of layer
+					interactive: true
+				};
+      }
+		})
+		// zoom to fit screen
+		var zoomExMrn = countyLayer.getBounds()
+
+		map.fitBounds(zoomExMrn, {
+			maxzoom: 8
+		})
+		countyLayer.addTo(map)
+
+			// add lightning cause
+		var lightning = L.geoJson(fires, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, styles);
+			},
+			filter: function (feature) {
+				if (feature.properties.STATISTICA == "Lightning") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#D98A29',
+					radius: getRadius(feature.properties.Acres)
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#99611D'
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#D98A29'
+					});
+				});
+
+				// create template literal for tooltip  
+				// popup = `<h4>${feature.properties.FIRE_NAME} Fire</h4>Cause: ${feature.properties.STATISTICA}<br> Size: ${feature.properties.Acres.toLocaleString()}<br> Year: ${feature.properties.DISCOVER_Y}`
+				props = feature.properties
+				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add miscellaneous cause
+		var misc = L.geoJson(fires, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, styles);
+			},
+			filter: function (feature) {
+				if (feature.properties.STATISTICA == "Miscellaneous") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#404259',
+					radius: getRadius(feature.properties.Acres)
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#2E2F40'
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#404259'
+					});
+				});
+				// create template literal for tooltip  
+				props = feature.properties
+				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add equipment cause
+		var equipment = L.geoJson(fires, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, styles);
+			},
+			filter: function (feature) {
+				if (feature.properties.STATISTICA == "Equipment Use") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#9392A6',
+					radius: getRadius(feature.properties.Acres)
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#7C7B8C'
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#9392A6'
+					});
+				});
+				// create template literal for tooltip    
+				props = feature.properties
+				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add arson cause
+		var arson = L.geoJson(fires, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, styles);
+			},
+			filter: function (feature) {
+				if (feature.properties.STATISTICA == "Arson") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#298C77',
+					radius: getRadius(feature.properties.Acres)
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#217361'
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#298C77'
+					});
+				});
+				// create template literal for tooltip   
+				props = feature.properties
+				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add campfire cause
+		var camp = L.geoJson(fires, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, styles);
+			},
+			filter: function (feature) {
+				if (feature.properties.STATISTICA == "Campfire") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#D94D1A',
+					radius: getRadius(feature.properties.Acres)
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#993612'
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#D94D1A'
+					});
+				});
+				// create template literal for tooltip      
+				props = feature.properties
+				popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+		// get the radius for circle marker
+		function getRadius(area) {
+			var radius = Math.sqrt(area / Math.PI);
+			return radius * .17;
+		}
+		// style control layer
+		var sourceLayers = {
+			"<b style= 'color:#D98A29'>Lightning</b>": lightning,
+			"<b style= 'color:#404259'>Miscellaneous</b>": misc,
+			"<b style= 'color:#9392A6'>Equipment</b>": equipment,
+			"<b style= 'color:#298C77'>Arson</b>": arson,
+			"<b style= 'color:#993612'>Campfire</b>": camp
+		}
+		// create control layer
+		L.control.layers(null, sourceLayers, { collapsed: false }).addTo(map);
+
+
+		function makePopup(name, cause, size, year) {
+				// create template literal for tooltip  
+				return `<h4>${name} Fire</h4>
+				<b>Cause:</b> ${cause}<br> 
+				<b>Size:</b> ${size.toLocaleString()}<br> 
+				<b>Year:</b> ${year}`
+		}
+
+		var clicked = false // start with false condition
+
+		function myInfo() {
+
+			// create button that changes color on click
+			// create a footer overlay that displays 33% of the current viewport height
+			var x = document.getElementById('footer');
+			var y = document.getElementById('info-button');
+			if (clicked) {
+				y.style.background = 'rgba(100, 100, 100, 0.9)'; // gray button
+				x.style.height = '0px'; // no footer height 
+			} else {
+				y.style.background = 'rgba(146, 239, 146, 0.8)' // green button
+				x.style.height = '33vh';  // footer 33% of viewport height
+			}
+			clicked = !clicked
+		}
+	</script>
+	</body>
+	
+	</html>
+
