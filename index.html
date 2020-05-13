@@ -5,7 +5,7 @@
 	<meta charset=utf-8 />
 	<title>Marin County Park Closures</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
+	
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
@@ -177,7 +177,7 @@
 					// color: '#222222', // Gray
 					color: '#333333', // White
 					// Make line weight larger than the county outline
-					weight: 2,
+					weight: .5,
 					fillOpacity: 0.1,
 					fillColor: '#CCCCCC',
 					// This property allows us control interactivty of layer
@@ -193,48 +193,241 @@
 		})
 		countyLayer.addTo(map)
 
-			// add lightning cause
-		var softClosure = L.geoJson(bounds, {
+		// add MCOSD preserve layers for soft closure
+		var mcosdSC = L.geoJson(bounds, {
 			pointToLayer: function (feature, latlng) {
 				return feature
 			},
 			filter: function (feature) {
-			if (feature.properties.ClosStat == "Soft Closure") {
+			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
 					return feature;
 				}
 			},
 			style: function (feature) {
 				return {
 					color: 'false',
-					fillColor: '#FFB700',
-					fillOpacity: .9
+					fillColor: '#1a523d',
+					fillOpacity: .7
 
 				}
 		},
 			onEachFeature: function (feature, layer) {
 				layer.on('mouseover', function () {
 					layer.setStyle({
-						fillColor: '#FFB700',
-						fillOpacity: .7
+						fillColor: '#ffde17',
+						fillOpacity: .9
 					});
 				});
 				layer.on('mouseout', function () {
 					layer.setStyle({
-						fillColor: '#FFB700',
-						fillOpacity: .9
+						fillColor: '#1a523d',
+						fillOpacity: .7
 					});
 				});
 
-			//	 create template literal for tooltip  
-				 popup = `<h4>${feature.properties.SITE_NAME}</h4>Closure Status: <b>${feature.properties.ClosStat}</b>`
-//	</br>			props = feature.properties
-//	</br>			popup = makePopup(props.FIRE_NAME, props.STATISTICA, props.Acres, props.DISCOVER_Y)
+			// create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
 
 				layer.bindTooltip(popup)
 			}
 		}).addTo(map);
 
-		var softClosure = L.geoJson(bounds, {
+		// add MCP layer for soft closure
+		var mcpSC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.AGNCY_NAME == "Marin County Parks Department, County of") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#1a523d',
+					fillOpacity: .7
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ffde17',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#1a523d',
+						fillOpacity: .7
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add MCP layer for hard closure
+		var mcpSC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == "Hard Closure" && feature.properties.AGNCY_NAME == "Marin County Parks Department, County of") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#1a523d',
+					fillOpacity: .7
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ed1c24',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#1a523d',
+						fillOpacity: .7
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		// add MCP layer for soft closure
+		var mmmwdSC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.AGNCY_NAME == "Marin Municipal Water District") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#3b785f',
+					fillOpacity: .7
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ffde17',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#3b785f',
+						fillOpacity: .7
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		var cdprSC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.AGNCY_NAME == "California Department of Parks and Recreation") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#a0bfb2',
+					fillOpacity: .7
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ffde17',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#a0bfb2',
+						fillOpacity: .7
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+		var poreUnknown = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+			if (feature.properties.ClosStat == "Unknown" && feature.properties.UNIT_NAME == "Point Reyes National Seashore") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#164433',
+					fillOpacity: .7
+
+				}
+		},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#999999',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#164433',
+						fillOpacity: .7
+					});
+				});
+
+			//	 create template literal for tooltip  
+				 popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
+
+
+		{/* var softClosure = L.geoJson(bounds, {
 			pointToLayer: function (feature, latlng) {
 				return feature
 			},
@@ -272,7 +465,7 @@
 
 				layer.bindTooltip(popup)
 			}
-		}).addTo(map);
+		}).addTo(map); */}
 
 		{/* // add miscellaneous cause
 		var misc = L.geoJson(fires, {
