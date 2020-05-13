@@ -22,7 +22,7 @@
 					/* dark */
 					font-family: Lato, sans-serif;
 					font-size: 100%;
-					color: #ddd;
+					color: #3d3d3d;
 					/* light */
 				}
 		
@@ -37,9 +37,21 @@
 				}
 		
 				h1 {
-					display: inline-block;
-					margin-right: 20px;
-					color: #001323;
+					position: absolute;
+					margin-top: 0;
+					top: 10px;
+					left: 15px;
+					font-size: 1.5em;
+					font-family: 'Quicksand', sans-serif;
+					font-weight: 700;
+					letter-spacing: .04em;
+					padding: 10px 15px;
+					/* Add styles to match Leaflet UI elements */
+					background: rgba(256, 256, 256, .3);
+					box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+					border: 1px solid #ddd;
+					border-radius: 5px;
+					z-index: 800;
 				}
 		
 				h2 {
@@ -68,9 +80,10 @@
 
 				#about {
 					position: absolute;
-					top: 12px;
+					bottom: 20px;
 					left: 15px;
-					width: 275px;
+					height: 300;
+					width: 280px;
 					padding: 0 15px;
 					/* Add styles to match Leaflet UI elements */
 					background: rgba(256, 256, 256, .3);
@@ -94,6 +107,11 @@
 					color: #001323;
 				}
 
+				h1 {
+					font-size: 1.2em;
+				}
+	
+
 				.leaflet-control-layers-expanded { 
 					background:  rgba(100, 100, 100, 0.9); 
 					font-family: 'Roboto', sans-serif;
@@ -116,20 +134,31 @@
 </head>
 
 <body>
+
+	<h1>Shelter in Place Closures for Marin County</h1>
+
 	<div id='map'></div>
 </body>
 
-	<header>
-	<!--	<h1>California Wildfires, 2009-2019</h1> -->
-	</header>
+
 	<section>
 		<div class="row">
 			<div id="map"></div>
 		</div>
 
 		<section id="about">
-			<h2>Shelter in Place Closures for Marin County</h2>
-				<p>This map highlights status of open space/park closures for lands managed by National Park Service, California State Parks, Marin County Parks and Marin Municipal Water District in Marin County, California. <b>Updated 5/11/2020</b></p>
+			<h2></h2>
+				<p>This map highlights status of open space/park closures In Marin County, California for the following agencies:</p>
+					<ul style="list-style-type: disc">
+						<li>Marin County Open Space District</li>
+						<li>Marin County Parks</li>
+						<li>California State Parks</li>
+						<li>Marin Municipal Water District</li>
+						<li>National Park Service</li>
+					</ul>
+					<p>Note: Information about Golden Gate Recreation Area Closures can be
+						\/14 found <a href="https://www.nps.gov/goga/planyourvisit/temporary-facilities-closure-advisory.htm" target="_blank">here.</a><br><br><b>Map updated 5/13/2020</b></p>
+					
 		</section>
 	</section>
 
