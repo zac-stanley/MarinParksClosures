@@ -179,13 +179,12 @@
 		var map = L.map('map', options);
 
 	// Get basemap URL from Leaflet Providers
-	var basemap_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+	var basemap_url = 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
 
 	// Get basemap attributes from Leaflet Providers
 	var basemap_attributes = {
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-		subdomains: 'abcd',
-		maxZoom: 19
+		attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+		maxZoom: 20
 	};
 	// requests some map tiles
 	var tiles = L.tileLayer(basemap_url, basemap_attributes);
