@@ -122,11 +122,12 @@
 			color: #222;
 		}
 
-		@media only screen and (max-width: 900px) {
-			#info-button {
-				width: 200px;
-			}
+		/* Don't display info block when window is very small */
+		@media screen and (max-height: 200px) {
 
+			#about {
+				display: none;
+			}
 		}
 	</style>
 </head>
