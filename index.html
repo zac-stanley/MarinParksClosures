@@ -58,6 +58,16 @@
 			color: #001323;
 		}
 
+		l1 {
+			font-family: 'Roboto', sans-serif;
+			color: #000000;
+			font-size: 1.2em;
+			letter-spacing: .06em;
+			font-style: italic;
+			font-weight: bolder;
+			margin: 5px 0;
+		}
+
 		h4 {
 			font-family: 'Roboto', sans-serif;
 			color: #000000;
@@ -67,6 +77,7 @@
 			font-weight: bolder;
 			margin: 5px 0;
 		}
+
 
 		#map {
 			position: absolute;
@@ -134,7 +145,7 @@
 
 <body>
 
-	<h1>Shelter in Place Closures for Marin County</h1>
+<h1>Shelter in Place Closures for Marin County</h1>
 
 	<div id='map'></div>
 </body>
@@ -147,22 +158,49 @@
 	</div>
 
 	<section id="about">
+		
+		<p>This map highlights status of open space/park closures In Marin County, California.</p>
+		<div id="legend">
 
-		<p><b>Map updated 5/13/2020</b><br><br>This map highlights status of open space/park closures In Marin County, California for the following agencies:
-		</p>
-		<ul style="list-style-type: disc">
-			<li>Marin County Open Space District</li>
-			<li>Marin County Parks</li>
-			<li>California State Parks</li>
-			<li>Marin Municipal Water District</li>
-			<li>National Park Service</li>
-		</ul>
+			<svg height="300" width="100%">
+				<!-- legend heading -->
+				<text x="10" y="15" style="font-size: 14px; font-weight: bold;">Managing Agency</text>
+				<!-- ca state parks legend element -->
+				<rect x="10" y="30" width="30" height="20" style="fill: #a0bfb2"/>
+				<text x="48" y="45" style="font-size: 12px; font-style: italic;">California State Parks</text>
+				<!-- mmwd legend element -->
+				<rect x="10" y="60" width="30" height="20" style="fill: #3b785f"/>
+				<text x="48" y="75" style="font-size: 12px; font-style: italic;">Marin Municipal Water District</text>
+				<!-- marin county parks legend element -->
+				<rect x="10" y="90" width="30" height="20" style="fill: #1a523d"/>
+				<text x="48" y="105" style="font-size: 12px; font-style: italic;">Marin County Parks and Open Space</text>
+				<!-- national park service legend element -->
+				<rect x="10" y="120" width="30" height="20" style="fill: #164433"/>
+				<text x="48" y="135" style="font-size: 12px; font-style: italic;">National Park Service</text>
+				<!-- sub legend heading -->
+				<text x="10" y="165" style="font-size: 14px; font-weight: bold;">Park Status - rollover area to see</text>
+				<!-- soft closure legend element -->
+				<!-- open parks -->
+				<rect x="10" y="180" width="30" height="20" style="fill: #00A12A"/>
+				<text x="48" y="195" style="font-size: 12px; font-style: italic;">Open</text>
+				<!-- soft closure -->
+				<rect x="10" y="210" width="30" height="20" style="fill: #ffde17"/>
+				<text x="48" y="225" style="font-size: 12px; font-style: italic;">Soft Closure - walk, bike, and horse access</text>
+				<!-- hard closure -->
+				<rect x="10" y="240" width="30" height="20" style="fill: #ed1c24"/>
+				<text x="48" y="255" style="font-size: 12px; font-style: italic;">Hard Closure - no access</text>
+				<!-- unknown closure status -->
+				<rect x="10" y="270" width="30" height="20" style="fill: #999999"/>
+				<text x="48" y="285" style="font-size: 12px; font-style: italic;">Unknown Satus</text>
+		</svg>
+	</div>
 		<p><b>Note:</b> Information about Golden Gate Recreation Area Closures can be
 			found <a href="https://www.nps.gov/goga/planyourvisit/temporary-facilities-closure-advisory.htm"
 				target="_blank">here.</a></p>
 
 				<p>Please be sure to follow <a href="https://www.marincountyparks.org/parkspreserves/covid19" target="_blank"> Marin County Public Health guidelines</a> when visiting parks!
 				</p>
+		<p><b>Map updated 5/14/2020</b>
 
 
 	</section>
@@ -310,7 +348,7 @@
 	}).addTo(map);
 
 	// add MCP layer for hard closure
-	var mcpSC = L.geoJson(bounds, {
+	var mcpHC = L.geoJson(bounds, {
 		pointToLayer: function (feature, latlng) {
 			return feature
 		},
