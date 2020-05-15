@@ -309,6 +309,45 @@
 		}
 	}).addTo(map);
 
+		// add MCOSD layer for hard closure
+		var mcosdHC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+				if (feature.properties.ClosStat == "Hard Closure" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#1a523d',
+					fillOpacity: .7
+	
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ed1c24',
+						fillOpacity: .9
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#1a523d',
+						fillOpacity: .7
+					});
+				});
+	
+				//	 create template literal for tooltip  
+				popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+	
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map);
+
 	// add MCP layer for soft closure
 	var mcpSC = L.geoJson(bounds, {
 		pointToLayer: function (feature, latlng) {
