@@ -5,13 +5,12 @@
 	<meta charset=utf-8 />
 	<title>Marin County Park Closures</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet">
+
 
 	<style>
 		body {
@@ -23,16 +22,6 @@
 			font-size: 100%;
 			color: black;
 			/* light */
-		}
-
-		header {
-			top: 0px;
-			width: 80%;
-			margin: 10px auto 10px auto;
-		}
-
-		select {
-			width: 260px;
 		}
 
 		h1 {
@@ -58,16 +47,6 @@
 			color: #001323;
 		}
 
-		l1 {
-			font-family: 'Roboto', sans-serif;
-			color: #000000;
-			font-size: 1.2em;
-			letter-spacing: .06em;
-			font-style: italic;
-			font-weight: bolder;
-			margin: 5px 0;
-		}
-
 		h4 {
 			font-family: 'Roboto', sans-serif;
 			color: #000000;
@@ -78,6 +57,21 @@
 			margin: 5px 0;
 		}
 
+		@font-face {
+			font-family: 'verlag';
+			src:url(Fonts/VerlagBold.otf);
+			font-style: normal;
+			font-weight: 100
+
+		}
+
+		@font-face {
+			font-family: 'fairplex';
+			src:url(Fonts\FairplexWideOT.otf);
+			font-style: normal;
+			font-weight: 100;
+		}
+	
 		#map {
 			position: absolute;
 			top: 0;
@@ -85,18 +79,6 @@
 			width: 100%;
 			background: #ddd;
 			/* with transparency */
-		}
-
-		#logoContainer {
-			position: fixed;
-			z-index: 100;
-			top: 0;
-			right: 100px;
-			bottom: 0px;
-			background-color: white;
-			border: 1px solid black;
-			width: 100px;
-			height: 100px;
 		}
 
 		#about {
@@ -115,6 +97,7 @@
 			z-index: 800;
 		}
 
+		
 		a {
 			color: #004A8B;
 		}
@@ -125,23 +108,13 @@
 		}
 
 		p {
-			font-size: 1em;
+			font-family: 'verlag';
+			font-size: 1.1em;
 			color: #001323;
 		}
 
 		h1 {
 			font-size: 1.2em;
-		}
-
-		.leaflet-control-layers-expanded {
-			background: rgba(100, 100, 100, 0.9);
-			font-family: 'Roboto', sans-serif;
-		}
-
-		.leaflet-bar a {
-			/* Override the default style for Leaflet's zoom  */
-			background: rgba(256, 256, 256, .3);
-			color: #222;
 		}
 
 		/* Don't display info block when window is very small */
@@ -164,11 +137,7 @@
 <section>
 	<div class="row">
 		<div id="map"></div>
-
-		<div id="logoContainer">
-			My Logo
-			</div>
-
+		
 	</div>
 
 	<section id="about">
@@ -177,43 +146,41 @@
 
 			<svg height="300" width="100%">
 				<!-- legend heading -->
-				<text x="10" y="15" style="font-size: 14px; font-weight: bold;">Managing Agency</text>
+				<text x="10" y="15" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Managing Agency</text>
 				<!-- ca state parks legend element -->
 				<rect x="10" y="30" width="30" height="20" style="fill: #a0bfb2"/>
-				<text x="48" y="45" style="font-size: 12px; font-style: italic;">California State Parks</text>
+				<text x="48" y="45" style="font-size: 12px; font-family: 'fairplex';">California State Parks</text>
 				<!-- mmwd legend element -->
 				<rect x="10" y="60" width="30" height="20" style="fill: #3b785f"/>
-				<text x="48" y="75" style="font-size: 12px; font-style: italic;">Marin Municipal Water District</text>
+				<text x="48" y="75" style="font-size: 12px; font-family: 'fairplex';">Marin Municipal Water District</text>
 				<!-- marin county parks legend element -->
 				<rect x="10" y="90" width="30" height="20" style="fill: #1a523d"/>
-				<text x="48" y="105" style="font-size: 12px; font-style: italic;">Marin County Parks and Open Space</text>
+				<text x="48" y="105" style="font-size: 12px; font-family: 'fairplex';">Marin County Parks and Open Space</text>
 				<!-- nps lands legend element -->
 				<rect x="10" y="120" width="30" height="20" style="fill: #164433"/>
-				<text x="48" y="135" style="font-size: 12px; font-style: italic;">National Park Service</text>
+				<text x="48" y="135" style="font-size: 12px; font-family: 'fairplex';">National Park Service</text>
 				
 				<!-- sub legend heading -->
-				<text x="10" y="175" style="font-size: 14px; font-weight: bold;">Park Status - rollover area to see</text>
+				<text x="10" y="175" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Park Status - rollover area to see</text>
 				<!-- soft closure legend element -->
 				<!-- open parks -->
 				<rect x="10" y="190" width="30" height="20" style="fill: #00A12A"/>
-				<text x="48" y="205" style="font-size: 12px; font-style: italic;">Open</text>
+				<text x="48" y="205" style="font-size: 12px; font-family: 'fairplex';">Open</text>
 				<!-- open w/ parking restrictions -->
 				<rect x="10" y="220" width="30" height="20" style="fill: #00ED3F"/>
-				<text x="48" y="235" style="font-size: 12px; font-style: italic;">Open w/ Parking Restrictions</text>
+				<text x="48" y="235" style="font-size: 12px; font-family: 'fairplex';">Open w/ Parking Restrictions</text>
 				<!-- soft closure -->
 				<rect x="10" y="250" width="30" height="20" style="fill: #ffde17"/>
-				<text x="48" y="265" style="font-size: 12px; font-style: italic;">Soft Closure - walk, bike, and horse access</text>
+				<text x="48" y="265"style="font-size: 12px; font-family: 'fairplex';">Soft Closure - walk, bike, and horse access</text>
 				<!-- hard closure -->
 				<rect x="10" y="280" width="30" height="20" style="fill: #ed1c24"/>
-				<text x="48" y="295" style="font-size: 12px; font-style: italic;">Hard Closure - no access</text>
+				<text x="48" y="295" style="font-size: 12px; font-family: 'fairplex';">Hard Closure - no access</text>
 		</svg>
 	</div>
 		<p><b>Map updated 5/20/2020</b></p>
 
 
 	</section>
-
-
 
 </section>
 
@@ -245,10 +212,6 @@
 	var tiles = L.tileLayer(basemap_url, basemap_attributes);
 	
 	map.addLayer(tiles);
-	var mapControlsContainer = document.getElementsByClassName("leaflet-control")[0];
-	var logoContainer = document.getElementById("logoContainer");
-
-	mapControlsContainer.appendChild(logoContainer);
 
 	map.addControl(L.control.zoom({ position: 'topright' }));
 
@@ -257,7 +220,6 @@
 		stroke: 1,
 		fillOpacity: .4
 	}
-
 
 	// add state outline
 	var countyLayer = L.geoJson(county, {
