@@ -539,12 +539,12 @@
 		}
 	}).addTo(map);
 
-	{/* var poreUnknown = L.geoJson(bounds, {
+	 var ggnraSC = L.geoJson(bounds, {
 		pointToLayer: function (feature, latlng) {
 			return feature
 		},
 		filter: function (feature) {
-			if (feature.properties.ClosStat == "Unknown" && feature.properties.UNIT_NAME == "Point Reyes National Seashore") {
+			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.UNIT_NAME == "Golden Gate National Recreation Area" || "Muir Woods National Monument") {
 				return feature;
 			}
 		},
@@ -559,7 +559,7 @@
 		onEachFeature: function (feature, layer) {
 			layer.on('mouseover', function () {
 				layer.setStyle({
-					fillColor: '#999999',
+					fillColor: '#ffde17',
 					fillOpacity: .9
 				});
 			});
@@ -575,7 +575,8 @@
 
 			layer.bindTooltip(popup)
 		}
-	}).addTo(map); */}
+	}).addTo(map); 
+	
 
 </script>
 </body>
