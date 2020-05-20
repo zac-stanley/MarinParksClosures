@@ -94,7 +94,7 @@
 			left: 15px;
 			height: 300;
 			width: 280px;
-			padding: 0 15px;
+			padding: 15px 15px;
 			margin: 0;
 			/* Add styles to match Leaflet UI elements */
 			background: rgba(256, 256, 256, .3);
@@ -150,7 +150,6 @@
 	<div id='map'></div>
 </body>
 
-
 <section>
 	<div class="row">
 		<div id="map"></div>
@@ -159,7 +158,6 @@
 
 	<section id="about">
 		
-		<p>This map highlights status of open space/park closures In Marin County, California.</p>
 		<div id="legend">
 
 			<svg height="300" width="100%">
@@ -189,16 +187,7 @@
 				<text x="48" y="255" style="font-size: 12px; font-style: italic;">Hard Closure - no access</text>
 		</svg>
 	</div>
-		<p><b>Note:</b> Information about Golden Gate Recreation Area closures can be
-			found <a href="https://www.nps.gov/goga/planyourvisit/temporary-facilities-closure-advisory.htm"
-				target="_blank">here.</a> Point Reyes National Seashore Information can be found <a href="https://www.nps.gov/pore/planyourvisit/conditions.htm"
-				target="_blank">here.</a></p>
-
-				<p>Local and city parks are not included on this map!</p>
-
-				<p>Please be sure to follow <a href="https://coronavirus.marinhhs.org/" target="_blank"> Marin County Public Health guidelines</a> when visiting parks!
-				</p>
-		<p><b>Map updated 5/19/2020</b>
+		<p><b>Map updated 5/20/2020</b></p>
 
 
 	</section>
@@ -577,43 +566,6 @@
 		}
 	}).addTo(map); 
 
-	var muwoSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.UNIT_NAME == "Muir Woods National Monument") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#164433',
-				fillOpacity: .7
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: .9
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					fillColor: '#164433',
-					fillOpacity: .7
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map); 
 	
 
 </script>
