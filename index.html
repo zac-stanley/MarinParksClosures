@@ -78,7 +78,6 @@
 			margin: 5px 0;
 		}
 
-
 		#map {
 			position: absolute;
 			top: 0;
@@ -86,6 +85,18 @@
 			width: 100%;
 			background: #ddd;
 			/* with transparency */
+		}
+
+		#logoContainer {
+			position: fixed;
+			z-index: 100;
+			top: 0;
+			right: 100px;
+			bottom: 0px;
+			background-color: white;
+			border: 1px solid black;
+			width: 100px;
+			height: 100px;
 		}
 
 		#about {
@@ -154,6 +165,10 @@
 	<div class="row">
 		<div id="map"></div>
 
+		<div id="logoContainer">
+			My Logo
+			</div>
+
 	</div>
 
 	<section id="about">
@@ -182,12 +197,15 @@
 				<!-- open parks -->
 				<rect x="10" y="190" width="30" height="20" style="fill: #00A12A"/>
 				<text x="48" y="205" style="font-size: 12px; font-style: italic;">Open</text>
+				<!-- open w/ parking restrictions -->
+				<rect x="10" y="220" width="30" height="20" style="fill: #00ED3F"/>
+				<text x="48" y="235" style="font-size: 12px; font-style: italic;">Open w/ Parking Restrictions</text>
 				<!-- soft closure -->
-				<rect x="10" y="220" width="30" height="20" style="fill: #ffde17"/>
-				<text x="48" y="235" style="font-size: 12px; font-style: italic;">Soft Closure - walk, bike, and horse access</text>
+				<rect x="10" y="250" width="30" height="20" style="fill: #ffde17"/>
+				<text x="48" y="265" style="font-size: 12px; font-style: italic;">Soft Closure - walk, bike, and horse access</text>
 				<!-- hard closure -->
-				<rect x="10" y="250" width="30" height="20" style="fill: #ed1c24"/>
-				<text x="48" y="265" style="font-size: 12px; font-style: italic;">Hard Closure - no access</text>
+				<rect x="10" y="280" width="30" height="20" style="fill: #ed1c24"/>
+				<text x="48" y="295" style="font-size: 12px; font-style: italic;">Hard Closure - no access</text>
 		</svg>
 	</div>
 		<p><b>Map updated 5/20/2020</b></p>
@@ -225,8 +243,13 @@
 	};
 	// requests some map tiles
 	var tiles = L.tileLayer(basemap_url, basemap_attributes);
-
+	
 	map.addLayer(tiles);
+	var mapControlsContainer = document.getElementsByClassName("leaflet-control")[0];
+	var logoContainer = document.getElementById("logoContainer");
+
+	mapControlsContainer.appendChild(logoContainer);
+
 	map.addControl(L.control.zoom({ position: 'topright' }));
 
 	var styles = {
@@ -234,6 +257,8 @@
 		stroke: 1,
 		fillOpacity: .4
 	}
+
+
 	// add state outline
 	var countyLayer = L.geoJson(county, {
 
@@ -375,6 +400,46 @@
 					layer.bindTooltip(popup)
 				}
 			}).addTo(map);
+
+			// add MCOSD w/ parking restrictions layer Open lands
+			var mcosdOpenPark = L.geoJson(bounds, {
+				pointToLayer: function (feature, latlng) {
+					return feature
+				},
+				filter: function (feature) {
+					if (feature.properties.ClosStat == "Open w/ Parking Restrictions" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
+						return feature;
+					}
+				},
+				style: function (feature) {
+					return {
+						color: 'false',
+						fillColor: '#1a523d',
+						fillOpacity: .7
+		
+					}
+				},
+				onEachFeature: function (feature, layer) {
+					layer.on('mouseover', function () {
+						layer.setStyle({
+							fillColor: '#00ED3F',
+							fillOpacity: .9
+						});
+					});
+					layer.on('mouseout', function () {
+						layer.setStyle({
+							fillColor: '#1a523d',
+							fillOpacity: .7
+						});
+					});
+		
+					//	 create template literal for tooltip  
+					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+		
+					layer.bindTooltip(popup)
+				}
+			}).addTo(map);
+
 
 	// add MCP layer for soft closure
 	var mcpSC = L.geoJson(bounds, {
