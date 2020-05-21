@@ -124,7 +124,11 @@
 			#about {
 				display: none;
 			}
-		}
+
+			#legend {
+					display: none;
+				}
+		
 	</style>
 </head>
 
@@ -420,19 +424,9 @@
 							opacity: false
 						});
 					});
-
-
-			//		for (var i = 0; i < mcosdOpenPark.length; i++){
-			//			const props = mcosdOpenPark[i].properties;
-			//zstanley	zs		};
-
-
 		
 					//	 create template literal for tooltip  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-						//if (mcosdOpenPark[i].properties.ResTyp)
-					//	console.log(restrictions)
 		
 					layer.bindTooltip(popup)
 				}
