@@ -7,10 +7,7 @@
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Michroma|Patua+One|Roboto&display=swap" rel="stylesheet">
-
+	
 
 	<style>
 		body {
@@ -83,16 +80,33 @@
 
 		#about {
 			position: absolute;
-			bottom: 20px;
-			left: 15px;
-			height: 300;
-			width: 280px;
+			top: 10px;
+			right: 10px;
+			height: 150px;
+			width: 505px;
 			padding: 15px 15px;
 			margin: 0;
 			/* Add styles to match Leaflet UI elements */
 			background: rgba(256, 256, 256, .3);
 			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 			border: 1px solid #ddd;
+			border-radius: 5px;
+			z-index: 800;
+		}
+
+		#logo {
+
+			position: absolute;
+			bottom: 10px;
+			left: 0px;
+			height: 300;
+			width: 280px;
+			padding: 15px 15px;
+			margin: 0;
+			/* Add styles to match Leaflet UI elements */
+			background: rgba(256, 256, 256, 0);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
+			border: 0px solid #ddd;
 			border-radius: 5px;
 			z-index: 800;
 		}
@@ -126,6 +140,10 @@
 			}
 
 			#legend {
+					display: none;
+				}
+
+			#logo {
 					display: none;
 				}
 		
@@ -166,30 +184,36 @@
 				<text x="48" y="135" style="font-size: 12px; font-family: 'fairplex';">National Park Service</text>
 				
 				<!-- sub legend heading -->
-				<text x="10" y="175" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Park Status - rollover area to view</text>
+				<text x="260" y="15" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Park Status - rollover area to view</text>
 				<!-- soft closure legend element -->
 				<!-- open parks -->
-				<rect x="10" y="190" width="30" height="20" style="fill: #00A12A"/>
-				<text x="48" y="205" style="font-size: 12px; font-family: 'fairplex';">Open</text>
+				<rect x="260" y="30" width="30" height="20" style="fill: #00A12A"/>
+				<text x="298" y="45" style="font-size: 12px; font-family: 'fairplex';">Open</text>
 				<!-- open w/ parking restrictions -->
-				<rect x="10" y="220" width="30" height="20" style="fill: #00ED3F"/>
-				<text x="48" y="235" style="font-size: 12px; font-family: 'fairplex';">Open w/ Parking Restrictions</text>
+				<rect x="260" y="60" width="30" height="20" style="fill: #00ED3F"/>
+				<text x="298" y="75" style="font-size: 12px; font-family: 'fairplex';">Open w/ Parking Restrictions</text>
 				<!-- soft closure -->
-				<rect x="10" y="250" width="30" height="20" style="fill: #ffde17"/>
-				<text x="48" y="265"style="font-size: 12px; font-family: 'fairplex';">Soft Closure - walk, bike, and horse access</text>
+				<rect x="260" y="90" width="30" height="20" style="fill: #ffde17"/>
+				<text x="298" y="105"style="font-size: 12px; font-family: 'fairplex';">Soft Closure - walk, bike, and horse access</text>
 				<!-- hard closure -->
-				<rect x="10" y="280" width="30" height="20" style="fill: #ed1c24"/>
-				<text x="48" y="295" style="font-size: 12px; font-family: 'fairplex';">Hard Closure - no access</text>
+				<rect x="260" y="120" width="30" height="20" style="fill: #ed1c24"/>
+				<text x="298" y="135" style="font-size: 12px; font-family: 'fairplex';">Hard Closure - no access</text>
 		</svg>
+		<p><b>Map updated 5/21/2020</b></p>
+	</div>
+</section>
+
+	<svg>
+	<div id="logo">
 		<svg width="200" height="200"
   	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">       
-  	<image x="25" href="Images\LogoLayout_v2.png" height="200" width="200"/>
+  	<image x="1" y="50" href="Images\LogoLayout_v2.png" height="150" width="100"/></div>
 </svg>
-	</div>
-		<p><b>Map updated 5/21/2020</b></p>
+	
+		
 
 
-	</section>
+	
 
 </section>
 
@@ -222,7 +246,7 @@
 	
 	map.addLayer(tiles);
 
-	map.addControl(L.control.zoom({ position: 'topright' }));
+	map.addControl(L.control.zoom({ position: 'topleft' }));
 
 	var styles = {
 		weight: 1,
