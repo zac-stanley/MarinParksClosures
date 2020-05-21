@@ -690,6 +690,50 @@
 		}
 	}).addTo(map); 
 
+		// add PORE soft closure geometry
+		var poreSC = L.geoJson(bounds, {
+			pointToLayer: function (feature, latlng) {
+				return feature
+			},
+			filter: function (feature) {
+				if (feature.properties.ClosStat == "Soft Closure" && feature.properties.UNIT_NAME == "Point Reyes National Seashore") {
+					return feature;
+				}
+			},
+			style: function (feature) {
+				return {
+					color: 'false',
+					fillColor: '#164433',
+					fillOpacity: .7
+
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on('mouseover', function () {
+					layer.setStyle({
+						fillColor: '#ffde17',
+						fillOpacity: .9,
+						color: '#ffde17',
+						opacity: .5,
+						sticky: true
+					});
+				});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: '#164433',
+						fillOpacity: .7,
+						color: false,
+						opacity: false
+					});
+				});
+
+				//	 create template literal for tooltip  
+				popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				layer.bindTooltip(popup)
+			}
+		}).addTo(map); 
+
 
 	
 
