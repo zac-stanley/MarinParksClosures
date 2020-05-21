@@ -182,7 +182,7 @@
   	<image x="25" href="Images\Partners.png" height="200" width="200"/>
 </svg>
 	</div>
-		<p><b>Map updated 5/20/2020</b></p>
+		<p><b>Map updated 5/21/2020</b></p>
 
 
 	</section>
@@ -388,6 +388,7 @@
 				pointToLayer: function (feature, latlng) {
 					return feature
 				},
+
 				filter: function (feature) {
 					if (feature.properties.ClosStat == "Open w/ Parking Restrictions" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
 						return feature;
@@ -419,9 +420,19 @@
 							opacity: false
 						});
 					});
+
+
+			//		for (var i = 0; i < mcosdOpenPark.length; i++){
+			//			const props = mcosdOpenPark[i].properties;
+			//		};
+
+
 		
 					//	 create template literal for tooltip  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+						//if (mcosdOpenPark[i].properties.ResTyp)
+					///	console.log(restrictions)
 		
 					layer.bindTooltip(popup)
 				}
