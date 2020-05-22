@@ -409,6 +409,8 @@
 
 			// add MCOSD w/ parking restrictions layer Open lands
 			var mcosdOpenPark = L.geoJson(bounds, {
+
+				
 				pointToLayer: function (feature, latlng) {
 					return feature
 				},
@@ -445,23 +447,10 @@
 						});
 					});
 
-				// for ( let i = 0; i < mcosdOpenPark.length; i++ ) {             
-        // // declare variable for accessing object properties
-        // let props = mcosdOpenPark[i].properties;
+					//	 create template literal for tooltip  
+				 	let popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
 
-        // };
-		
-				// 	//	 create template literal for tooltip  
-				// 	let popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
 
-				// 	if (mcosdOpenPark[i].properties.ResType) {
-				// 		console.log("I have restrictions, include in popup")
-	
-				// 		popup += `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>'>${props.ResType}</a></p>`
-	
-				// 	} else {
-				// 		console.log("I have no url, exclude from popup");
-				// 	}
 		
 					layer.bindTooltip(popup)
 				}
