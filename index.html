@@ -151,8 +151,7 @@
 </head>
 
 <body>
-//<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-//<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
 
 <div id='map'></div>
 </body>
@@ -214,6 +213,8 @@
 	
 </section>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 <script src="GeoJsons/MarinBnd.js"></script>
 <script src="GeoJsons/MarinClosures.js"></script>
 <script>
@@ -245,7 +246,7 @@
 
 	map.addControl(L.control.zoom({ position: 'topleft' }));
 
-	//map.addControl(new L.Control.Fullscreen());
+	map.addControl(new L.Control.Fullscreen());
 
 
 	var styles = {
@@ -448,9 +449,24 @@
 							opacity: false
 						});
 					});
+
+				// for ( let i = 0; i < mcosdOpenPark.length; i++ ) {             
+        // // declare variable for accessing object properties
+        // let props = mcosdOpenPark[i].properties;
+
+        // };
 		
-					//	 create template literal for tooltip  
-					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+				// 	//	 create template literal for tooltip  
+				// 	let popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+
+				// 	if (mcosdOpenPark[i].properties.ResType) {
+				// 		console.log("I have restrictions, include in popup")
+	
+				// 		popup += `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>'>${props.ResType}</a></p>`
+	
+				// 	} else {
+				// 		console.log("I have no url, exclude from popup");
+				// 	}
 		
 					layer.bindTooltip(popup)
 				}
