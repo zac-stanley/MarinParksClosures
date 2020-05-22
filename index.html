@@ -285,7 +285,7 @@
 			return feature
 		},
 		filter: function (feature) {
-			if (feature.properties.ClosStat == "Soft Closure" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
+			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
 				return feature;
 			}
 		},
@@ -675,7 +675,7 @@
 		}
 	}).addTo(map); 
 
-	// add muir woods soft closure
+	// add muir wood closure
 	var muwoSC = L.geoJson(bounds, {
 		pointToLayer: function (feature, latlng) {
 			return feature
