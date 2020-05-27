@@ -7,23 +7,21 @@
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
-  <style>
-
-@font-face {
+	<style>
+		@font-face {
 			font-family: 'verlag';
-			src:url(Fonts/VerlagBold.otf);
+			src: url(Fonts/VerlagBold.otf);
 			font-style: normal;
 			font-weight: 100
-
 		}
 
 		@font-face {
 			font-family: 'fairplex';
-			src:url(Fonts\FairplexWideOT.otf);
+			src: url(Fonts\FairplexWideOT.otf);
 			font-style: normal;
 			font-weight: 100;
 		}
-	
+
 		#map {
 			position: absolute;
 			top: 0;
@@ -64,13 +62,13 @@
 			border: 0px solid #ddd;
 			border-radius: 5px;
 			z-index: 800;
-    }
-    
-    p {
+		}
+
+		p {
 			font-family: 'verlag';
 			font-size: .8em;
 			color: #001323;
-		}	
+		}
 
 		h5 {
 			font-family: 'fairplex';
@@ -85,221 +83,129 @@
 			}
 
 			#legend {
-					display: none;
-				}
+				display: none;
+			}
 
 			#logo {
-					display: none;
-
-  </style> 
+				display: none;
+	</style>
 
 </head>
 
 <body>
 
-<div id='map'></div>
+	<div id='map'></div>
 
-<section>
-	<div class="row">
-		<div id="map"></div>
-		
-	</div>
+	<section>
+		<div class="row">
+			<div id="map"></div>
 
-<section>
-	<div class="row">
-		<div id="map"></div>
-		
-	</div>
+		</div>
 
-	<section id="about">
-		
-		<div id="legend">
+		<section>
+			<div class="row">
+				<div id="map"></div>
 
-			<svg height="320" width="100%">
-				<!-- legend heading -->
-				<text x="10" y="15" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Park Status - rollover area to view</text>
-				<!-- ca state parks legend element -->
-				<rect x="10" y="30" width="30" height="20" style="fill: #00A12A"/>
-				<text x="48" y="45" style="font-size: 12px; font-family: 'fairplex';">Open</text>
-				<!-- mmwd legend element -->
-				<rect x="10" y="60" width="30" height="20" style="fill: #00ED3F"/>
-				<text x="48" y="75" style="font-size: 12px; font-family: 'fairplex';">Open with parking and road restrictions</text>
-				<!-- marin county parks legend element -->
-				<rect x="10" y="90" width="30" height="20" style="fill: #ffde17"/>
-				<text x="48" y="105" style="font-size: 12px; font-family: 'fairplex';">Open to walk, bike, and horse access only</text>
-				<!-- nps lands legend element -->
-				<rect x="10" y="120" width="30" height="20" style="fill: #ed1c24"/>
-				<text x="48" y="135" style="font-size: 12px; font-family: 'fairplex';">Closed</text>
-				<text x="14" y="164" style="font-size: 12px; font-family: 'verlag';">Map updated 5/23/2020</text>
-			</svg>		
-	  </div>
-</section>
+			</div>
 
-	<svg>
-	  <div id="logo">
-		<svg width="200" height="200"
-  	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">       
-  	<image x="1" y="50" href="Images\LogoLayout_v2.png" height="150" width="100"/></div>
-  </svg>
-	
-</section>
+			<section id="about">
 
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-<script src="GeoJsons/MarinBnd.js"></script>
-<script src="GeoJsons/MarinClosures.js"></script>
+				<div id="legend">
 
-// Add custom javascript
-<script>
+					<svg height="320" width="100%">
+						<!-- legend heading -->
+						<text x="10" y="15" style="font-family: 'verlag';font-size: 1.1em; font-weight: bold;">Park Status -
+							rollover area to view</text>
+						<!-- ca state parks legend element -->
+						<rect x="10" y="30" width="30" height="20" style="fill: #00A12A" />
+						<text x="48" y="45" style="font-size: 12px; font-family: 'fairplex';">Open</text>
+						<!-- mmwd legend element -->
+						<rect x="10" y="60" width="30" height="20" style="fill: #00ED3F" />
+						<text x="48" y="75" style="font-size: 12px; font-family: 'fairplex';">Open with parking and road
+							restrictions</text>
+						<!-- marin county parks legend element -->
+						<rect x="10" y="90" width="30" height="20" style="fill: #ffde17" />
+						<text x="48" y="105" style="font-size: 12px; font-family: 'fairplex';">Open to walk, bike, and horse access
+							only</text>
+						<!-- nps lands legend element -->
+						<rect x="10" y="120" width="30" height="20" style="fill: #ed1c24" />
+						<text x="48" y="135" style="font-size: 12px; font-family: 'fairplex';">Closed</text>
+						<text x="14" y="164" style="font-size: 12px; font-family: 'verlag';">Map updated 5/27/2020</text>
+					</svg>
+				</div>
+			</section>
 
-// map options
-	var options = {
-		center: [38.1648, -122.7551],
-		zoomSnap: .11,
-		zoom: 10,
-		zoomControl: true
-	}
+			<svg>
+				<div id="logo">
+					<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<image x="1" y="50" href="Images\LogoLayout_v2.png" height="150" width="100" />
+				</div>
+			</svg>
 
-	// create a Leaflet map in our division container with id of 'map'
-	var map = L.map('map', options);
+		</section>
 
-	// Get basemap URL from Leaflet Providers
-	var basemap_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+		<script src="GeoJsons/MarinBnd.js"></script>
+		<script src="GeoJsons/MarinClosures.js"></script>
 
-	// Get basemap attributes from Leaflet Providers
-	var basemap_attributes = {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 19
-	};
-	// requests some map tiles
-	var tiles = L.tileLayer(basemap_url, basemap_attributes);
-	
-	map.addLayer(tiles);
+		// Add custom javascript
+		<script>
 
-	var styles = {
-		weight: 1,
-		stroke: 1,
-		fillOpacity: .4
-	}
+			// map options
+			var options = {
+				center: [38.1648, -122.7551],
+				zoomSnap: .11,
+				zoom: 10,
+				zoomControl: true
+			}
 
-		// add state outline
-	var countyLayer = L.geoJson(county, {
+			// create a Leaflet map in our division container with id of 'map'
+			var map = L.map('map', options);
 
-		style: function (feature) {
-			return {
-				color: '#333333', // White
-				// Make line weight larger than the county outline
-				weight: .5,
-				fillOpacity: 0.1,
-				fillColor: '#CCCCCC',
-				// This property allows us control interactivty of layer
-				interactive: true
+			// Get basemap URL from Leaflet Providers
+			var basemap_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+
+			// Get basemap attributes from Leaflet Providers
+			var basemap_attributes = {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+				subdomains: 'abcd',
+				maxZoom: 19
 			};
-		}
-	})
-	countyLayer.addTo(map)
+			// requests some map tiles
+			var tiles = L.tileLayer(basemap_url, basemap_attributes);
 
-		// add MCOSD preserve layers for soft closure
-	var mcosdSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
-				return feature;
+			map.addLayer(tiles);
+
+			var styles = {
+				weight: 1,
+				stroke: 1,
+				fillOpacity: .4
 			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ffde17',
-				opacity: false,
-				fillOpacity: false
 
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
+			// add state outline
+			var countyLayer = L.geoJson(county, {
 
-			// create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map);
-
-		// add MCOSD layer for hard closure
-		var mcosdHC = L.geoJson(bounds, {
-			pointToLayer: function (feature, latlng) {
-				return feature
-			},
-			filter: function (feature) {
-				if (feature.properties.ClosStat == "Closed" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
-					return feature;
+				style: function (feature) {
+					return {
+						color: '#333333', // White
+						// Make line weight larger than the county outline
+						weight: .5,
+						fillOpacity: 0.1,
+						fillColor: '#CCCCCC',
+						// This property allows us control interactivty of layer
+						interactive: true
+					};
 				}
-			},
-			style: function (feature) {
-				return {
-					color: 'false',
-					fillColor: '#ed1c24',
-					opacity: false,
-					fillOpacity: false
-	
-				}
-			},
-			onEachFeature: function (feature, layer) {
-				layer.on('mouseover', function () {
-					layer.setStyle({
-						fillColor: '#ed1c24',
-						fillOpacity: false,
-						stroke: true,
-						weight: .7,
-						color: '#000000',
-						opacity: false,
-						sticky: true
-					});
-				});
-				layer.on('mouseout', function () {
-					layer.setStyle({
-						color: 'false',
-						fillColor: '#ed1c24',
-						opacity: false,
-						fillOpacity: false
-					});
-				});
-	
-				//	 create template literal for tooltip  
-				popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-	
-				layer.bindTooltip(popup)
-			}
-		}).addTo(map);
+			})
+			countyLayer.addTo(map)
 
-			// add MCOSD layer Open lands
-			var mcosdOpen = L.geoJson(bounds, {
+			// add Open lands
+			var open = L.geoJson(bounds, {
 				pointToLayer: function (feature, latlng) {
 					return feature
 				},
 				filter: function (feature) {
-					if (feature.properties.ClosStat == "Open" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
+					if (feature.properties.ClosStat == "Open") {
 						return feature;
 					}
 				},
@@ -331,24 +237,25 @@
 							fillOpacity: false
 						});
 					});
-		
+
 					//	 create template literal for tooltip  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-		
+
 					layer.bindTooltip(popup)
 				}
 			}).addTo(map);
 
-			// add MCOSD w/ parking restrictions layer Open lands
-			var mcosdOpenPark = L.geoJson(bounds, {
 
-				
+			
+			// add Open lands w/ parking restrictions
+			var openPark = L.geoJson(bounds, {
+
 				pointToLayer: function (feature, latlng) {
 					return feature
 				},
 
 				filter: function (feature) {
-					if (feature.properties.ClosStat == "Open with parking and road restrictions" && feature.properties.AGNCY_NAME == "Marin County Open Space District") {
+					if (feature.properties.ClosStat == "Open with parking and road restrictions") {
 						return feature;
 					}
 				},
@@ -375,354 +282,115 @@
 					layer.on('mouseout', function () {
 						layer.setStyle({
 							color: 'false',
-						fillColor: '#00ED3F',
-						opacity: false,
-						fillOpacity: false
+							fillColor: '#00ED3F',
+							opacity: false,
+							fillOpacity: false
 						});
 					});
 
-					//	 create template literal for tooltip  
-				 	let popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-
-		
-					layer.bindTooltip(popup)
-				}
+					//   create template literal for tooltip
+					var popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b><br>${feature.properties.ResType}</a></p>`;
+	
+				layer.bindTooltip(popup)
+					}
 			}).addTo(map);
 
 
-	// add MCP layer for soft closure
-	var mcpSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.AGNCY_NAME == "Marin County Parks Department, County of") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ffde17',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map);
-
-	// add MCP layer for hard closure
-	var mcpHC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Closed" && feature.properties.AGNCY_NAME == "Marin County Parks Department, County of") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ed1c24',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ed1c24',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ed1c24',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map);
-
- 	// MMWD layer for soft closure
-	var mmmwdSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.AGNCY_NAME == "Marin Municipal Water District") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ffde17',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map);
-
-	var cdprSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.AGNCY_NAME == "California Department of Parks and Recreation") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ffde17',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map);
-
-	 var ggnraSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.UNIT_NAME == "Golden Gate National Recreation Area") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ffde17',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ffde17',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map); 
-
-	// add muir woods closure
-	var muwoSC = L.geoJson(bounds, {
-		pointToLayer: function (feature, latlng) {
-			return feature
-		},
-		filter: function (feature) {
-			if (feature.properties.ClosStat == "Closed" && feature.properties.UNIT_NAME == "Muir Woods National Monument") {
-				return feature;
-			}
-		},
-		style: function (feature) {
-			return {
-				color: 'false',
-				fillColor: '#ed1c24',
-				opacity: false,
-				fillOpacity: false
-
-			}
-		},
-		onEachFeature: function (feature, layer) {
-			layer.on('mouseover', function () {
-				layer.setStyle({
-					fillColor: '#ed1c24',
-					fillOpacity: false,
-					stroke: true,
-					weight: .7,
-					color: '#000000',
-					opacity: false,
-					sticky: true
-				});
-			});
-			layer.on('mouseout', function () {
-				layer.setStyle({
-					color: 'false',
-					fillColor: '#ed1c24',
-					opacity: false,
-					fillOpacity: false
-				});
-			});
-
-			//	 create template literal for tooltip  
-			popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
-
-			layer.bindTooltip(popup)
-		}
-	}).addTo(map); 
-
-		// add PORE soft closure geometry
-		var poreSC = L.geoJson(bounds, {
-			pointToLayer: function (feature, latlng) {
-				return feature
-			},
-			filter: function (feature) {
-				if (feature.properties.ClosStat == "Open to walk, bike and horse access only" && feature.properties.UNIT_NAME == "Point Reyes National Seashore") {
-					return feature;
-				}
-			},
-			style: function (feature) {
-				return {
-					color: 'false',
-					fillColor: '#ffde17',
-					opacity: false,
-					fillOpacity: false
-	
-				}
-			},
-			onEachFeature: function (feature, layer) {
-				layer.on('mouseover', function () {
-					layer.setStyle({
-						fillColor: '#ffde17',
-						fillOpacity: false,
-						stroke: true,
-						weight: .7,
-						color: '#000000',
-						opacity: false,
-						sticky: true
-					});
-				});
-				layer.on('mouseout', function () {
-					layer.setStyle({
+			// add lands with walk, bike and horse access only
+			var mcpSC = L.geoJson(bounds, {
+				pointToLayer: function (feature, latlng) {
+					return feature
+				},
+				filter: function (feature) {
+					if (feature.properties.ClosStat == "Open to walk, bike and horse access only") {
+						return feature;
+					}
+				},
+				style: function (feature) {
+					return {
 						color: 'false',
 						fillColor: '#ffde17',
 						opacity: false,
 						fillOpacity: false
+
+					}
+				},
+				onEachFeature: function (feature, layer) {
+					layer.on('mouseover', function () {
+						layer.setStyle({
+							fillColor: '#ffde17',
+							fillOpacity: false,
+							stroke: true,
+							weight: .7,
+							color: '#000000',
+							opacity: false,
+							sticky: true
+						});
 					});
-				});
+					layer.on('mouseout', function () {
+						layer.setStyle({
+							color: 'false',
+							fillColor: '#ffde17',
+							opacity: false,
+							fillOpacity: false
+						});
+					});
 
-				//	 create template literal for tooltip  
-				popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
+					//	 create template literal for tooltip  
+					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
 
-				layer.bindTooltip(popup)
-			}
-		}).addTo(map); 
+					layer.bindTooltip(popup)
+				}
+			}).addTo(map);
 
+			// add MCP layer for hard closure
+			var closed = L.geoJson(bounds, {
+				pointToLayer: function (feature, latlng) {
+					return feature
+				},
+				filter: function (feature) {
+					if (feature.properties.ClosStat == "Closed") {
+						return feature;
+					}
+				},
+				style: function (feature) {
+					return {
+						color: 'false',
+						fillColor: '#ed1c24',
+						opacity: false,
+						fillOpacity: false
 
+					}
+				},
+				onEachFeature: function (feature, layer) {
+					layer.on('mouseover', function () {
+						layer.setStyle({
+							fillColor: '#ed1c24',
+							fillOpacity: false,
+							stroke: true,
+							weight: .7,
+							color: '#000000',
+							opacity: false,
+							sticky: true
+						});
+					});
+					layer.on('mouseout', function () {
+						layer.setStyle({
+							color: 'false',
+							fillColor: '#ed1c24',
+							opacity: false,
+							fillOpacity: false
+						});
+					});
 
+					//	 create template literal for tooltip  
+					popup = `<b>${feature.properties.SITE_NAME}</b><br>Closure Status: <b>${feature.properties.ClosStat}</b>`
 
+					layer.bindTooltip(popup)
+				}
+			}).addTo(map);
+					
 </script>
-
-  
 </body>
+
 </html>
