@@ -130,7 +130,7 @@
 						<!-- nps lands legend element -->
 						<rect x="10" y="120" width="30" height="20" style="fill: #ed1c24" />
 						<text x="48" y="135" style="font-size: 12px; font-family: 'fairplex';">Closed</text>
-						<text x="14" y="164" style="font-size: 12px; font-family: 'verlag';">Map updated 6/15/2020</text>
+						<text x="14" y="164" style="font-size: 12px; font-family: 'verlag';">Map updated 6/29/2020</text>
 					</svg>
 				</div>
 			</section>
@@ -241,7 +241,7 @@
 					//	 create template literal for tooltip  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b></p>`;
 
-					layer.bindTooltip(popup)
+					layer.bindPopup(popup)
 				}
 			}).addTo(map);
 
@@ -288,10 +288,10 @@
 						});
 					});
 
-					//   create template literal for tooltip
-					var popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b><br>${feature.properties.ResType}</a></p>`;
+					//   create template literal for popup
+					var popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b><br>${feature.properties.ResType}<br>${feature.properties.Links}<br>${feature.properties.Links2}</a></p>`;
 	
-				layer.bindTooltip(popup)
+				layer.bindPopup(popup)
 					}
 			}).addTo(map);
 
@@ -336,10 +336,10 @@
 						});
 					});
 
-					//	 create template literal for tooltip  
+					//	 create template literal for popup  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b>`
 
-					layer.bindTooltip(popup)
+					layer.bindPopup(popup)
 				}
 			}).addTo(map);
 
@@ -383,10 +383,10 @@
 						});
 					});
 
-					//	 create template literal for tooltip  
+					//	 create template literal for popup  
 					popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b>`
 
-					layer.bindTooltip(popup)
+					layer.bindPopup(popup)
 				}
 			}).addTo(map);
 					
