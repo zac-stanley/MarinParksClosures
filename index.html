@@ -289,7 +289,9 @@
 					});
 
 					//   create template literal for popup
-					var popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b><br>${feature.properties.ResType}<br>${feature.properties.Links}<br>${feature.properties.Links2}</a></p>`;
+					var popup = `<b>${feature.properties.SITE_NAME}</b><br>Status: <b>${feature.properties.ClosStat}</b><br>${feature.properties.ResType}</a></p>`;
+					// <br>${feature.properties.Links}
+					// <br>${feature.properties.Links2}
 	
 				layer.bindPopup(popup)
 					}
